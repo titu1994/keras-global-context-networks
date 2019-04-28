@@ -1,14 +1,8 @@
-
 from keras.layers import Conv1D, Conv2D, Conv3D
-from keras.layers import Dense
-from keras.layers import MaxPool1D
 from keras.layers import Reshape
 from keras.layers import Activation
 from keras.layers import Softmax
-from keras.layers import GlobalAveragePooling2D
-from keras.layers import add, multiply, dot
-from keras.layers import Permute
-from keras.layers import Lambda
+from keras.layers import add, dot
 
 from keras import backend as K
 
