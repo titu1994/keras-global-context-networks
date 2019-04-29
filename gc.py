@@ -2,6 +2,7 @@ from keras.layers import Conv1D, Conv2D, Conv3D
 from keras.layers import Reshape
 from keras.layers import Activation
 from keras.layers import Softmax
+from keras.layers import Permute
 from keras.layers import add, dot
 
 from keras import backend as K
@@ -147,8 +148,7 @@ def _spatial_expandND(ip, rank):
     channel_dim = 1 if K.image_data_format() == 'channels_first' else -1
 
     if rank == 3:
-        shape = [1, -1]
-        x = Reshape(shape)(ip)  # identity op for rank 3
+        x = Permute((2, 1))(ip)  # identity op for rank 3
 
     elif rank == 4:
         if channel_dim == 1:
@@ -177,7 +177,7 @@ if __name__ == '__main__':
     from keras.layers import Input
     from keras.models import Model
 
-    ip = Input(shape=(64, 32))
+    ip = Input(shape=(64, 64, 32))
     x = global_context_block(ip, reduction_ratio=16)
 
     model = Model(ip, x)
