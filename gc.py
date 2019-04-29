@@ -147,7 +147,8 @@ def _spatial_expandND(ip, rank):
     channel_dim = 1 if K.image_data_format() == 'channels_first' else -1
 
     if rank == 3:
-        x = ip  # identity op for rank 3
+        shape = [1, -1]
+        x = Reshape(shape)(ip)  # identity op for rank 3
 
     elif rank == 4:
         if channel_dim == 1:
@@ -176,7 +177,7 @@ if __name__ == '__main__':
     from keras.layers import Input
     from keras.models import Model
 
-    ip = Input(shape=(64, 64, 32))
+    ip = Input(shape=(64, 32))
     x = global_context_block(ip, reduction_ratio=16)
 
     model = Model(ip, x)
